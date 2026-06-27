@@ -48,4 +48,49 @@ This project combines **Embedded Systems**, **Computer Vision**, **IoT**, and **
 
 ---
 
-# 📂 Project Structure
+
+---
+
+# 🎯 Rack Detection Logic
+
+The webcam frame is divided into:
+
+### Horizontal Zones
+
+- Top Rack
+- Middle Rack
+- Bottom Rack
+
+### Vertical Zones
+
+- Left Box
+- Center Box
+- Right Box
+
+The detected wrist coordinates determine:
+
+- Rack Level
+- Storage Box
+
+To improve accuracy, coordinate smoothing and multi-frame confirmation are used before finalizing the detected rack location.
+
+---
+
+# ☁ Cloud Storage
+
+After successful detection:
+
+- Recorded video is uploaded to Google Drive.
+- Metadata is saved as a JSON file.
+- Video and metadata are linked using a timestamp.
+
+Example Metadata:
+
+```json
+{
+    "Tag_ID":"79 FC 77 5A",
+    "Rack_Level":2,
+    "Box_Number":1,
+    "Timestamp":"20260627_103501",
+    "Video_File":"rack_record_20260627_103501.mp4"
+}
