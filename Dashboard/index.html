@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Smart Laundry Bag Tracking Dashboard</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #eef2f5;
+        margin: 0;
+        padding: 0;
+    }
+    .header {
+        background: #4a90e2;
+        padding: 18px;
+        color: white;
+        text-align: center;
+        font-size: 28px;
+        font-weight: bold;
+    }
+    .container {
+        margin: 40px auto;
+        width: 450px;
+        background: white;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 3px 12px rgba(0,0,0,0.15);
+    }
+    .label-box {
+        background: #dfe9ff;
+        padding: 15px;
+        border-radius: 10px;
+        margin: 10px 0;
+        font-size: 18px;
+    }
+</style>
+
+</head>
+<body>
+
+<div class="header">
+    Smart Laundry Bag Tracking System
+</div>
+
+<div class="container">
+    <div id="bag_id" class="label-box">Bag ID: Loading...</div>
+    <div id="rack_level" class="label-box">Rack Level: Loading...</div>
+    <div id="box_number" class="label-box">Box Number: Loading...</div>
+    <div id="timestamp" class="label-box">Timestamp: Loading...</div>
+    <div id="video_file" class="label-box">Video File: Loading...</div>
+</div>
+
+<script>
+function fetchData() {
+    fetch("/get_data")
+    .then(res => res.json())
+    .then(data => {
+        document.getElementById("bag_id").innerText =
+            "Bag ID: " + data.Tag_ID;
+
+        document.getElementById("rack_level").innerText =
+            "Rack Level: " + data.Rack_Level;
+
+        document.getElementById("box_number").innerText =
+            "Box Number: " + data.Box_Number;
+
+        document.getElementById("timestamp").innerText =
+            "Timestamp: " + data.Timestamp;
+
+        document.getElementById("video_file").innerText =
+            "Video File: " + data.Video_File;
+    })
+    .catch(err => console.log("Error:", err));
+}
+
+// Refresh every 3 seconds
+setInterval(fetchData, 3000);
+fetchData();
+</script>
+
+</body>
+</html>
